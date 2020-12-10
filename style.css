@@ -15,9 +15,10 @@
 /* Глобальные стили */
 * {
   --color-white: #ffffff;
-  --color-white-2: #fafafa; /* i'm sorry */
-  --color-white-3:#f3f4f6; /* i'm sorry */
+  --color-white-2: #fafafa; /* sorry for the names */
+  --color-white-3:#f3f4f6; 
   --color-extra-light-grey: #eaecf0;
+  --color-extra-light-grey-2: #eceef2;
   --color-light-grey: #7f899e;
   --color-grey: #50586a;
   --color-dark-grey: #3c3c3c;
@@ -195,9 +196,18 @@ img {
 }
 
 .review-form__header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   padding: 16px;
   padding-right: 40px;
+  background-color: var(--color-white);
 }
+
+.review-form__header--sticky {
+  border-bottom: 1px solid var(--color-extra-light-grey-2);
+}
+
 
 .figure {
   display: -webkit-box;
@@ -481,9 +491,10 @@ img {
   }
   
   .review-form__header {
+    position: static;
     padding: 16px 32px;
     padding-right: 40px;
-    border-bottom: 1px solid var(--color-extra-light-grey);
+    border-bottom: 1px solid var(- -color-extra-light-grey);
   }
 
   .figure {
