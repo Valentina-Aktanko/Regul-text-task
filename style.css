@@ -12,6 +12,13 @@
 * Browsers: last 4 version
 */
 
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 /* Глобальные стили */
 * {
   --color-white: #ffffff;
@@ -149,16 +156,6 @@ img {
   border-radius: 16px 16px 0px 0px;
 }
 
-.modal-review::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 148px;
-  width: 24px;
-  height: 3px;
-  background-image: url(img/icon-rect.svg);
-}
-
 .section-title {
   margin: 0;
   font-weight: 600;
@@ -196,6 +193,7 @@ img {
 }
 
 .review-form__header {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 3;
@@ -204,10 +202,19 @@ img {
   background-color: var(--color-white);
 }
 
+.review-form__header::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 148px;
+  width: 24px;
+  height: 3px;
+  background-image: url(img/icon-rect.svg);
+}
+
 .review-form__header--sticky {
   border-bottom: 1px solid var(--color-extra-light-grey-2);
 }
-
 
 .figure {
   display: -webkit-box;
@@ -485,16 +492,16 @@ img {
     height: auto;
     border-radius: 16px;
   }
-
-  .modal-review::before {
-    content: none;
-  }
   
   .review-form__header {
     position: static;
     padding: 16px 32px;
     padding-right: 40px;
     border-bottom: 1px solid var(- -color-extra-light-grey);
+  }
+  
+  .review-form__header::before {
+    content: none;
   }
 
   .figure {
