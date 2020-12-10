@@ -140,6 +140,8 @@ img {
   left: 50%;
   margin-left: -160px;
   width: 320px;
+  height: calc(100% - 56px);
+  overflow: auto;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background-color: var(--color-white);
@@ -384,18 +386,6 @@ img {
   margin-right: 0;
 }
 
-/* .gallery__item::before {
-  content: '';
-  position: absolute;
-  top: 15px;
-  right: 17px;
-  width: 14px;
-  height: 18px;
-  background-image: url(img/icon-delete.svg);
-} */
-
-
-
 .gallery__btn-add {
   width: 80px;
   height: 80px;
@@ -482,6 +472,7 @@ img {
   .modal-review {
     margin-left: calc(var(--tablet-width) / -2);
     width: var(--tablet-width);
+    height: auto;
     border-radius: 16px;
   }
 
