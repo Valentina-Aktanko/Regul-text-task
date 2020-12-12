@@ -5,33 +5,9 @@
 </template>
 
 <style>
-@font-face {
-  font-family: 'Montserrat Medium';
-  src: url('~@/assets/fonts/montserrat-medium-webfont.woff2') format('woff2'),
-    url('~@/assets/fonts/montserrat-medium-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat Regular';
-  src: url('~@/assets/fonts/montserrat-regular-webfont.woff2') format('woff2'),
-    url('~@/assets/fonts/montserrat-regular-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'montserratsemibold';
-  src: url('~@/assets/fonts/montserrat-semibold-webfont.woff2') format('woff2'),
-    url('~@/assets/fonts/montserrat-semibold-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 * {
   --color-white: #ffffff;
-  --color-white-2: #fafafa; /* sorry for the names */
+  --color-white-2: #fafafa;
   --color-white-3: #f3f4f6;
   --color-extra-light-grey: #eaecf0;
   --color-extra-light-grey-2: #eceef2;
@@ -50,7 +26,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  font-family: 'Montserrat Regular', 'Arial', sans-serif;
+  font-family: 'Montserrat', 'Arial', sans-serif;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -70,48 +46,9 @@ img {
   padding: 0;
   border: 0;
   white-space: nowrap;
-  -webkit-clip-path: inset(100%);
   clip-path: inset(100%);
   clip: rect(0, 0, 0, 0);
   overflow: hidden;
-}
-
-/* Animation */
-@-webkit-keyframes bounce {
-  0% {
-    -webkit-transform: translateY(-2000px);
-    transform: translateY(-2000px);
-  }
-  70% {
-    -webkit-transform: translateY(30px);
-    transform: translateY(30px);
-  }
-  90% {
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-@keyframes bounce {
-  0% {
-    -webkit-transform: translateY(-2000px);
-    transform: translateY(-2000px);
-  }
-  70% {
-    -webkit-transform: translateY(30px);
-    transform: translateY(30px);
-  }
-  90% {
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
 }
 
 .button {
@@ -127,4 +64,28 @@ img {
   border: none;
   border-radius: 6px;
 }
+
+.bounce-enter-active {
+  animation: bounce-in 0.6s;
+}
+
+.bounce-leave-active {
+  animation: bounce-in 0.6s reverse;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: translateY(-2000px);
+  }
+  70% {
+    transform: translateY(30px);
+  }
+  90% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 </style>

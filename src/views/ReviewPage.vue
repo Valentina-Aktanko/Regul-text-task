@@ -9,11 +9,10 @@
         <button class="button main-content__button" @click="toggleModalReview">
           Оставить отзыв
         </button>
-        <ModalReview
-          :class="{ 'modal--show': showModalReview }"
-          @toggle-modal-review="toggleModalReview"
-        />
-        <ModalOverlay />
+        <transition name="bounce">
+          <ModalReview v-if="show" @toggle-modal-review="toggleModalReview" />
+        </transition>
+        <ModalOverlay v-if="show" />
       </div>
     </section>
   </div>
@@ -27,21 +26,18 @@ export default {
   data() {
     return {
       title: 'Тестовое задание на позицию HTML-верстальщик',
-      showModalReview: false,
+      show: false,
     }
   },
   components: {
     ModalReview,
-    ModalOverlay,
+    ModalOverlay
   },
   methods: {
     toggleModalReview() {
-      this.showModalReview = !this.showModalReview
-    },
-  },
-  addToCart() {
-    this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
-  },
+      this.show = !this.show
+    }
+  }
 }
 </script>
 
@@ -56,7 +52,7 @@ export default {
 
 @media (min-width: 560px) {
   .main-content__wrapper {
-    width: 560px;
+    width: var(--tablet-width);
     padding: 24px 32px;
     padding-top: 100px;
   }
