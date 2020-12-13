@@ -15,6 +15,8 @@
   --color-grey: #50586a;
   --color-dark-grey: #3c3c3c;
   --color-black-06: rgba(0, 0, 0, 0.6);
+  --color-black-008: rgba(0, 0, 0, 0.08);
+  --color-green: #15a758;
   --color-brand-green: #53c6d1;
   --tablet-width: 560px;
 }

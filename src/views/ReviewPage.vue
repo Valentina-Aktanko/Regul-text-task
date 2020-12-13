@@ -11,10 +11,19 @@
           height="68"
           caption="Фоточки в свадебном платьице"
           author="Алена Смирнова"
+          key="modal-figure"
         />
-        <button class="button main-content__button" @click="toggleModalReview">
+        <button
+          class="button main-content__button"
+          @click="toggleModalReview(false)"
+        >
           Оставить отзыв
         </button>
+        <Notice
+          v-if="showNotice"
+          text="Спасибо, отзыв опубликован!"
+          @close-notice="closeNotice"
+        />
         <transition name="bounce">
           <ModalReview
             v-if="showModal"
@@ -31,24 +40,33 @@
 import ModalReview from '@/components/ModalReview.vue'
 import ModalOverlay from '@/components/ModalOverlay.vue'
 import Figure from '@/components/Figure.vue'
+import Notice from '@/components/Notice.vue'
 
 export default {
   data() {
     return {
       title: 'Тестовое задание на позицию HTML-верстальщик',
-      showModal: false
+      showModal: false,
+      showNotice: false,
     }
   },
   components: {
     ModalReview,
     ModalOverlay,
-    Figure
+    Figure,
+    Notice,
   },
   methods: {
-    toggleModalReview() {
+    toggleModalReview(submitted) {
       this.showModal = !this.showModal
-    }
-  }
+      if (submitted) {
+        this.showNotice = true
+      }
+    },
+    closeNotice() {
+      this.showNotice = false
+    },
+  },
 }
 </script>
 
@@ -62,6 +80,13 @@ export default {
 
 .main-content__wrapper > .figure {
   margin-left: -16px;
+}
+
+.main-content__button {
+  margin-bottom: 24px;
+}
+
+.main-content__notice {
 }
 
 @media (min-width: 560px) {

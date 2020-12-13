@@ -37,6 +37,7 @@
       id="review-form"
       action="https://echo.htmlacademy.ru"
       method="POST"
+      @submit.prevent="handleFormSubmit"
     >
       <Figure
         :src="require('../assets/img/image_1_big.jpg')"
@@ -44,6 +45,7 @@
         height="68"
         caption="Фоточки в свадебном платьице"
         author="Алена Смирнова"
+        key="page-figure"
       />
 
       <div class="review-form__rating-wrapper rating-wrapper">
@@ -317,15 +319,18 @@ export default {
   data() {
     return {
       headerIsSticky: false,
-      footerIsSticky: true
+      footerIsSticky: false
     }
+  },
+  mounted: function() {
+    this.makeStickyFooter()
   },
   components: {
     Figure
   },
   methods: {
     closeModalReview() {
-      this.$emit('toggle-modal-review')
+      this.$emit('toggle-modal-review', false)
     },
     handleScroll() {
       this.makeStickyHeader()
@@ -354,6 +359,7 @@ export default {
       let modal_review_bottom = modal_review.getBoundingClientRect().bottom
 
       let modal_footer = document.querySelector('.modal-review__footer')
+      let modal_footer_top = modal_footer.getBoundingClientRect().top
       let modal_footer_height = modal_footer.offsetHeight
 
       let prev_sibling = modal_footer.previousElementSibling
@@ -361,11 +367,17 @@ export default {
 
       let start_scroll_position = modal_review_bottom - modal_footer_height
 
-      if (prev_sibling_bottom == start_scroll_position) {
-        this.footerIsSticky = false
-      } else {
+      if (
+        modal_footer_top > modal_review_bottom - modal_footer_height ||
+        prev_sibling_bottom > start_scroll_position
+      ) {
         this.footerIsSticky = true
+      } else {
+        this.footerIsSticky = false
       }
+    },
+    handleFormSubmit() {
+      this.$emit('toggle-modal-review', true)
     }
   },
   computed: {
