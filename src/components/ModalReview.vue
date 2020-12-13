@@ -12,6 +12,24 @@
       >
         <span class="visually-hidden">Назад</span>
       </button>
+      <button
+        class="modal__close-btn"
+        type="button"
+        @click.prevent="closeModalReview"
+      >
+        <span class="visually-hidden">Закрыть</span>
+        <svg
+          width="14"
+          height="14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.364 13.364a1 1 0 01-1.414 0L7 8.414l-4.95 4.95A1 1 0 01.636 11.95L5.586 7 .636 2.05A1 1 0 012.05.636L7 5.586l4.95-4.95a1 1 0 011.414 1.414L8.414 7l4.95 4.95a1 1 0 010 1.414z"
+            fill="#9aa2b7"
+          />
+        </svg>
+      </button>
     </header>
 
     <form
@@ -20,7 +38,13 @@
       action="https://echo.htmlacademy.ru"
       method="POST"
     >
-      <Figure />
+      <Figure
+        :src="require('../assets/img/image_1_big.jpg')"
+        width="102"
+        height="68"
+        caption="Фоточки в свадебном платьице"
+        author="Алена Смирнова"
+      />
 
       <div class="review-form__rating-wrapper rating-wrapper">
         <fieldset class="rating review-form__rating">
@@ -283,25 +307,6 @@
         {{ captionFooterButton }}
       </button>
     </footer>
-
-    <button
-      class="modal__close-btn"
-      type="button"
-      @click.prevent="closeModalReview"
-    >
-      <span class="visually-hidden">Закрыть</span>
-      <svg
-        width="14"
-        height="14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M13.364 13.364a1 1 0 01-1.414 0L7 8.414l-4.95 4.95A1 1 0 01.636 11.95L5.586 7 .636 2.05A1 1 0 012.05.636L7 5.586l4.95-4.95a1 1 0 011.414 1.414L8.414 7l4.95 4.95a1 1 0 010 1.414z"
-          fill="#9aa2b7"
-        />
-      </svg>
-    </button>
   </section>
 </template>
 
@@ -316,7 +321,7 @@ export default {
     }
   },
   components: {
-    Figure,
+    Figure
   },
   methods: {
     closeModalReview() {
@@ -377,16 +382,6 @@ export default {
   z-index: 2;
 }
 
-.modal::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 148px;
-  width: 24px;
-  height: 3px;
-  background-image: url('../assets/img/icon-rect.svg');
-}
-
 .modal__close-btn {
   position: absolute;
   top: 16px;
@@ -428,6 +423,16 @@ export default {
   background-color: var(--color-white);
 }
 
+.modal-review__header::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 148px;
+  width: 24px;
+  height: 3px;
+  background-image: url('../assets/img/icon-rect.svg');
+}
+
 .modal-review__header--sticky {
   position: sticky;
   top: 0;
@@ -464,6 +469,8 @@ export default {
   width: 100%;
 }
 
+//-------------------------------------------
+
 .section-title {
   margin: 0;
   font-weight: 600;
@@ -481,10 +488,6 @@ export default {
 }
 
 @media (min-width: 560px) {
-  .modal::before {
-    content: none;
-  }
-
   .modal-review {
     margin-left: calc(var(--tablet-width) / -2);
     width: var(--tablet-width);
@@ -499,6 +502,10 @@ export default {
     border-bottom: 1px solid var(--color-extra-light-grey);
   }
 
+  .modal-review__header::before {
+    content: none;
+  }
+
   .modal-review__footer {
     display: flex;
     justify-content: flex-end;
@@ -508,9 +515,8 @@ export default {
   .review-form__figure {
     margin-top: 0;
   }
-  // dsdesdweweweewdweqwdfqedf
-  // dsvdfrfklnvbijlrbrbjrebjmigtljbk
-  // vc jifvmvm
+
+  //-------------------------------------------
 
   .rating-wrapper {
     display: -ms-grid;
