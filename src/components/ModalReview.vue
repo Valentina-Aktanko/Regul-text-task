@@ -1,29 +1,30 @@
 <template>
-  <section class="modal modal-review" id="modal-review">
+  <section
+    class="modal modal-review"
+    id="modal-review"
+    @scroll="makeStickyHeader"
+  >
+    <header
+      class="modal-review__header"
+      :class="{ 'modal-review__header--sticky': headerIsSticky }"
+    >
+      <h2 class="section-title">Новый отзыв</h2>
+      <button
+        v-show="headerIsSticky"
+        class="modal-review____button-back"
+        type="button"
+      >
+        <span class="visually-hidden">Назад</span>
+      </button>
+    </header>
+
     <form
       class="review-form"
+      id="review-form"
       action="https://echo.htmlacademy.ru"
       method="POST"
     >
-      <header class="review-form__header">
-        <h2 class="section-title">Новый отзыв</h2>
-      </header>
-
-      <figure class="review-form__figure figure">
-        <figcaption class="figure__caption section-title">
-          Фоточки в свадебном платьице
-          <span class="figure__author">Алена Смирнова</span>
-        </figcaption>
-        <p class="figure__image-wrapper">
-          <img
-            class="figure__image"
-            src="img/image_1_big.jpg"
-            width="102"
-            height="68"
-            alt="Фоточки в свадебном платьице"
-          />
-        </p>
-      </figure>
+      <Figure />
 
       <div class="review-form__rating-wrapper rating-wrapper">
         <fieldset class="rating review-form__rating">
@@ -222,7 +223,7 @@
         </li>
         <li class="gallery__item">
           <img
-            src="img/image_2.jpg"
+            src="../assets/img/image_2.jpg"
             width="80"
             height="80"
             alt="Молодожены в лодке"
@@ -233,7 +234,7 @@
         </li>
         <li class="gallery__item">
           <img
-            src="img/image_3.jpg"
+            src="../assets/img/image_3.jpg"
             width="80"
             height="80"
             alt="Молодожены гуляют по городу"
@@ -244,7 +245,7 @@
         </li>
         <li class="gallery__item">
           <img
-            src="img/image_4.jpg"
+            src="../assets/img/image_4.jpg"
             width="80"
             height="80"
             alt="Невеста в купальнике"
@@ -255,7 +256,7 @@
         </li>
         <li class="gallery__item">
           <img
-            src="img/image_5.jpg"
+            src="../assets/img/image_5.jpg"
             width="80"
             height="80"
             alt="Счастливая пара с букетом"
@@ -266,7 +267,7 @@
         </li>
         <li class="gallery__item">
           <img
-            src="img/image_6.jpg"
+            src="../assets/img/image_6.jpg"
             width="80"
             height="80"
             alt="Невеста с фотоаппаратом"
@@ -276,16 +277,12 @@
           </button>
         </li>
       </ul>
-
-      <footer class="review-form__footer">
-        <button class="button" type="submit">Отправить</button>
-      </footer>
     </form>
+
     <button
       class="modal__close-btn"
-      id="modal-review-close-button"
       type="button"
-      @click="closeModalReview"
+      @click.prevent="closeModalReview"
     >
       <span class="visually-hidden">Закрыть</span>
       <svg
@@ -300,17 +297,46 @@
         />
       </svg>
     </button>
+
+    <footer class="review-form__footer">
+      <button class="button" type="submit" form="review-form">Отправить</button>
+    </footer>
   </section>
 </template>
 
 <script>
+import Figure from '@/components/Figure.vue'
+
 export default {
   data() {
-    return {}
+    return {
+      headerIsSticky: false,
+    }
+  },
+  components: {
+    Figure,
   },
   methods: {
     closeModalReview() {
       this.$emit('toggle-modal-review')
+    },
+    makeStickyHeader() {
+      let modal_review = document.querySelector('.modal-review')
+      let modal_review_top = modal_review.getBoundingClientRect().top
+
+      let modal_header = document.querySelector('.modal-review__header')
+      let modal_header_height = modal_header.offsetHeight
+
+      let next_sibling = modal_header.nextElementSibling
+      let next_subling_top = next_sibling.getBoundingClientRect().top
+
+      let start_scroll_position = modal_review_top + modal_header_height
+
+      if (next_subling_top < start_scroll_position) {
+        this.headerIsSticky = true
+      } else {
+        this.headerIsSticky = false
+      }
     },
   },
 }
@@ -320,13 +346,16 @@ export default {
 .modal {
   position: fixed;
   z-index: 2;
-  display: none;
+}
 
-  &--show {
-    display: block;
-    animation-name: bounce;
-    animation-duration: 0.6s;
-  }
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 148px;
+  width: 24px;
+  height: 3px;
+  background-image: url('../assets/img/icon-rect.svg');
 }
 
 .modal__close-btn {
@@ -341,13 +370,144 @@ export default {
   border: none;
 }
 
+.modal__close-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
 .modal__close-btn:hover svg path {
   fill: var(--color-dark-grey);
   transition: fill 0.6s;
 }
 
-.modal__close-btn svg {
-  width: 14px;
-  height: 14px;
+.modal-review {
+  top: 56px;
+  left: 50%;
+  margin-left: -160px;
+  width: 320px;
+  height: calc(100% - 56px);
+  overflow: auto;
+  box-sizing: border-box;
+  background-color: var(--color-white);
+  border-radius: 16px 16px 0px 0px;
+}
+
+.modal-review__header {
+  display: flex;
+  padding: 16px;
+  padding-right: 40px;
+  background-color: var(--color-white);
+}
+
+.modal-review__header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  border-bottom: 1px solid var(--color-extra-light-grey-2);
+}
+
+.modal-review____button-back {
+  order: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  width: 24px;
+  height: 24px;
+  background-image: url(../assets/img/icon-arrow-back.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+}
+
+.section-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-form__figure {
+  margin-top: -16px;
+}
+
+@media (min-width: 560px) {
+  .modal::before {
+    content: none;
+  }
+
+  .modal-review {
+    margin-left: calc(var(--tablet-width) / -2);
+    width: var(--tablet-width);
+    height: auto;
+    border-radius: 16px;
+  }
+
+  .modal-review__header {
+    position: static;
+    padding: 16px 32px;
+    padding-right: 40px;
+    border-bottom: 1px solid var(--color-extra-light-grey);
+  }
+
+  .review-form__figure {
+    margin-top: 0;
+  }
+  // dsdesdweweweewdweqwdfqedf
+  // dsvdfrfklnvbijlrbrbjrebjmigtljbk
+  // vc jifvmvm
+
+  .rating-wrapper {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 210px 20px auto;
+    grid-template-columns: 210px auto;
+    gap: 20px;
+    padding: 32px;
+  }
+
+  .review-form__rating-wrapper {
+    margin-top: -24px;
+  }
+
+  .review-form__rating {
+    margin-bottom: 0;
+  }
+
+  .comment-wrapper {
+    padding: 32px;
+  }
+
+  .review-form__comment-wrapper {
+    margin-top: -36px;
+  }
+
+  .gallery {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 32px;
+  }
+
+  .review-form__gallery {
+    margin-top: -40px;
+  }
+
+  .review-form__footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding-left: 24px 32px;
+  }
 }
 </style>
