@@ -1,9 +1,5 @@
 <template>
-  <section
-    class="modal modal-review"
-    id="modal-review"
-    @scroll="makeStickyHeader"
-  >
+  <section class="modal modal-review" id="modal-review" @scroll="handleScroll">
     <header
       class="modal-review__header"
       :class="{ 'modal-review__header--sticky': headerIsSticky }"
@@ -279,6 +275,15 @@
       </ul>
     </form>
 
+    <footer
+      class="modal-review__footer"
+      :class="{ 'modal-review__footer--sticky': footerIsSticky }"
+    >
+      <button class="button" type="submit" form="review-form">
+        {{ captionFooterButton }}
+      </button>
+    </footer>
+
     <button
       class="modal__close-btn"
       type="button"
@@ -297,10 +302,6 @@
         />
       </svg>
     </button>
-
-    <footer class="review-form__footer">
-      <button class="button" type="submit" form="review-form">Отправить</button>
-    </footer>
   </section>
 </template>
 
@@ -311,6 +312,7 @@ export default {
   data() {
     return {
       headerIsSticky: false,
+      footerIsSticky: true
     }
   },
   components: {
@@ -319,6 +321,10 @@ export default {
   methods: {
     closeModalReview() {
       this.$emit('toggle-modal-review')
+    },
+    handleScroll() {
+      this.makeStickyHeader()
+      this.makeStickyFooter()
     },
     makeStickyHeader() {
       let modal_review = document.querySelector('.modal-review')
@@ -338,7 +344,30 @@ export default {
         this.headerIsSticky = false
       }
     },
+    makeStickyFooter() {
+      let modal_review = document.querySelector('.modal-review')
+      let modal_review_bottom = modal_review.getBoundingClientRect().bottom
+
+      let modal_footer = document.querySelector('.modal-review__footer')
+      let modal_footer_height = modal_footer.offsetHeight
+
+      let prev_sibling = modal_footer.previousElementSibling
+      let prev_sibling_bottom = prev_sibling.getBoundingClientRect().bottom
+
+      let start_scroll_position = modal_review_bottom - modal_footer_height
+
+      if (prev_sibling_bottom == start_scroll_position) {
+        this.footerIsSticky = false
+      } else {
+        this.footerIsSticky = true
+      }
+    }
   },
+  computed: {
+    captionFooterButton() {
+      return this.footerIsSticky ? 'Продолжить ' : 'Отправить'
+    }
+  }
 }
 </script>
 
@@ -420,6 +449,21 @@ export default {
   border: none;
 }
 
+.modal-review__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-extra-light-grey);
+}
+
+.modal-review__footer--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  width: 100%;
+}
+
 .section-title {
   margin: 0;
   font-weight: 600;
@@ -453,6 +497,12 @@ export default {
     padding: 16px 32px;
     padding-right: 40px;
     border-bottom: 1px solid var(--color-extra-light-grey);
+  }
+
+  .modal-review__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 24px 32px;
   }
 
   .review-form__figure {
@@ -498,16 +548,6 @@ export default {
 
   .review-form__gallery {
     margin-top: -40px;
-  }
-
-  .review-form__footer {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    padding-left: 24px 32px;
   }
 }
 </style>
