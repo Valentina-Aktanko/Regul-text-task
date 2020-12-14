@@ -48,171 +48,34 @@
         key="page-figure"
       />
 
-      <div class="review-form__rating-wrapper rating-wrapper">
-        <fieldset class="rating review-form__rating">
-          <legend class="rating__caption">Скорость</legend>
-          <div class="rating__group">
-            <input
-              class="rating__star rating__star--filled"
-              type="radio"
-              name="speed"
-              value="1"
-              aria-label="Ужасно"
-            />
-            <input
-              class="rating__star rating__star--filled"
-              type="radio"
-              name="speed"
-              value="2"
-              aria-label="Сносно"
-            />
-            <input
-              class="rating__star rating__star--filled"
-              type="radio"
-              name="speed"
-              value="3"
-              aria-label="Нормально"
-              checked
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="speed"
-              value="4"
-              aria-label="Хорошо"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="speed"
-              value="5"
-              aria-label="Отлично"
-            />
-          </div>
-        </fieldset>
+      <div class="review-form__rating-wrapper">
+        <Rating
+          :class="'review-form__rating'"
+          caption="Скорость"
+          name="speed"
+          rating_value="3"
+        />
 
-        <fieldset class="rating">
-          <legend class="rating__caption">Скорость отдачи видео</legend>
-          <div class="rating__group">
-            <input
-              class="rating__star"
-              type="radio"
-              name="video-upload-speed"
-              value="1"
-              aria-label="Ужасно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="video-upload-speed"
-              value="2"
-              aria-label="Сносно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="video-upload-speed"
-              value="3"
-              aria-label="Нормально"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="video-upload-speed"
-              value="4"
-              aria-label="Хорошо"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="video-upload-speed"
-              value="5"
-              aria-label="Отлично"
-            />
-          </div>
-        </fieldset>
+        <Rating
+          :class="'review-form__rating'"
+          caption="Скорость отдачи видео"
+          name="video-upload-speed"
+          rating_value="4"
+        />
 
-        <fieldset class="rating">
-          <legend class="rating__caption">Качество</legend>
-          <div class="rating__group">
-            <input
-              class="rating__star"
-              type="radio"
-              name="quality"
-              value="1"
-              aria-label="Ужасно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="quality"
-              value="2"
-              aria-label="Сносно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="quality"
-              value="3"
-              aria-label="Нормально"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="quality"
-              value="4"
-              aria-label="Хорошо"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="quality"
-              value="5"
-              aria-label="Отлично"
-            />
-          </div>
-        </fieldset>
+        <Rating
+          :class="'review-form__rating'"
+          caption="Качество"
+          name="quality"
+          rating_value="5"
+        />
 
-        <fieldset class="rating">
-          <legend class="rating__caption">Пунктуальность</legend>
-          <div class="rating__group">
-            <input
-              class="rating__star"
-              type="radio"
-              name="punctuality"
-              value="1"
-              aria-label="Ужасно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="punctuality"
-              value="2"
-              aria-label="Сносно"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="punctuality"
-              value="3"
-              aria-label="Нормально"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="punctuality"
-              value="4"
-              aria-label="Хорошо"
-            />
-            <input
-              class="rating__star"
-              type="radio"
-              name="punctuality"
-              value="5"
-              aria-label="Отлично"
-            />
-          </div>
-        </fieldset>
+        <Rating
+          :class="'review-form__rating'"
+          caption="Пунктуальность"
+          name="punctuality"
+          rating_value="1"
+        />
       </div>
 
       <div class="comment-wrapper review-form__comment-wrapper">
@@ -314,19 +177,21 @@
 
 <script>
 import Figure from '@/components/Figure.vue'
+import Rating from '@/components/Rating.vue'
 
 export default {
   data() {
     return {
       headerIsSticky: false,
-      footerIsSticky: false
+      footerIsSticky: false,
     }
   },
-  mounted: function() {
+  mounted: function () {
     this.makeStickyFooter()
   },
   components: {
-    Figure
+    Figure,
+    Rating,
   },
   methods: {
     closeModalReview() {
@@ -383,8 +248,8 @@ export default {
   computed: {
     captionFooterButton() {
       return this.footerIsSticky ? 'Продолжить ' : 'Отправить'
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -481,8 +346,6 @@ export default {
   width: 100%;
 }
 
-//-------------------------------------------
-
 .section-title {
   margin: 0;
   font-weight: 600;
@@ -497,6 +360,138 @@ export default {
 
 .review-form__figure {
   margin-top: -16px;
+}
+
+.review-form__rating-wrapper {
+  padding: 16px;
+  margin-top: -8px;
+}
+
+.review-form__rating {
+  margin-bottom: 16px;
+}
+
+.review-form__rating:last-child {
+  margin-bottom: 0;
+}
+
+.comment-wrapper {
+  padding: 16px;
+  color: var(--color-light-grey);
+}
+
+.review-form__comment-wrapper {
+  margin-top: -8px;
+}
+
+.comment {
+  margin-bottom: 4px;
+  padding: 16px 12px;
+  width: 100%;
+  height: 146px;
+  box-sizing: border-box;
+  vertical-align: top;
+  font: inherit;
+  background: var(--color-white-2);
+  border: 1px solid var(--color-extra-light-grey);
+  border-radius: 6px;
+  resize: none;
+}
+
+.comment__caption {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: right;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 80px 80px auto;
+  gap: 8px;
+  margin: 0;
+  padding: 16px;
+  list-style: none;
+}
+
+.review-form__gallery {
+  margin-top: -16px;
+}
+
+.gallery__item {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-right: 8px;
+}
+
+.gallery__item:last-child {
+  margin-right: 0;
+}
+
+.gallery__btn-add {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-white-3);
+  border: 1px solid var(--color-extra-light-grey);
+  border-radius: 6px;
+}
+
+.gallery__btn-add svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gallery__btn-del {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  width: 80px;
+  height: 80px;
+  background-color: transparent;
+  border: none;
+}
+
+.gallery__btn-del::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  right: 17px;
+  width: 14px;
+  height: 18px;
+  background-image: url(../assets/img/icon-delete.svg);
+}
+
+.gallery__btn-del svg {
+  width: 14px;
+  height: 18px;
+}
+
+.gallery__item:hover:not(.gallery__btn-add) .gallery__btn-del {
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+
+.gallery__btn-add:hover,
+.gallery__btn-add:focus {
+  border-color: var(--color-light-grey);
+  transition: border-color 0.6s;
+}
+
+.gallery__btn-add:hover svg path,
+.gallery__btn-add:focus svg path {
+  fill: var(--color-light-grey);
+  transition: fill 0.6s;
+}
+
+.review-form__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  border-top: 1px solid var(--color-extra-light-grey);
 }
 
 @media (min-width: 560px) {
@@ -528,19 +523,12 @@ export default {
     margin-top: 0;
   }
 
-  //-------------------------------------------
-
-  .rating-wrapper {
-    display: -ms-grid;
+  .review-form__rating-wrapper {
     display: grid;
-    -ms-grid-columns: 210px 20px auto;
     grid-template-columns: 210px auto;
     gap: 20px;
-    padding: 32px;
-  }
-
-  .review-form__rating-wrapper {
     margin-top: -24px;
+    padding: 32px;
   }
 
   .review-form__rating {
