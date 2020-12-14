@@ -46,14 +46,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .figure {
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 16px;
-  width: 100%;
-
+  width: 320px;
 }
 
 .figure__caption {
@@ -82,7 +81,7 @@ export default {
   .figure {
     flex-direction: row;
     padding: 24px 32px;
-    // width: var(--tablet-width);
+    width: var(--tablet-width);
   }
   .figure__caption {
     margin-top: 12px;
