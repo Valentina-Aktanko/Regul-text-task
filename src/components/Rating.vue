@@ -12,6 +12,7 @@
         :value="index + 1"
         :aria-label="item"
         :key="name + index"
+        @click="changeRatingValue(index + 1)"
       />
     </div>
   </fieldset>
@@ -21,7 +22,8 @@
 export default {
   data() {
     return {
-      items: ['Ужасно', 'Сносно', 'Нормально', 'Хорошо', 'Отлично'],
+      rating: 0,
+      items: ['Ужасно', 'Сносно', 'Нормально', 'Хорошо', 'Отлично']
     }
   },
   props: {
@@ -34,9 +36,19 @@ export default {
       default: 'rating'
     },
     rating_value: {
-      type: Number,
-      default: 0
+      type: String,
+      default: '0'
     }
+  },
+  methods: {
+    changeRatingValue(value) {
+      this.rating = Number(value)
+    }
+  },
+  update() {
+    this.changeRatingValue(this.props.rating_value)
+    console.log(this.props.rating_value);
+    console.log(this.rating);
   }
 }
 </script>

@@ -48,30 +48,13 @@
         key="page-figure"
       />
 
-      <div class="review-form__rating-wrapper">
+      <div v-for="item in ratingList" :key="item.name" class="review-form__rating-wrapper">
         <Rating
           :class="'review-form__rating'"
-          caption="Скорость"
-          name="speed"
-          rating_value="3"
-        />
-
-        <Rating
-          :class="'review-form__rating'"
-          caption="Скорость отдачи видео"
-          name="video-upload-speed"
-        />
-
-        <Rating
-          :class="'review-form__rating'"
-          caption="Качество"
-          name="quality"
-        />
-
-        <Rating
-          :class="'review-form__rating'"
-          caption="Пунктуальность"
-          name="punctuality"
+          :name="item.name"
+          :caption="item.caption"
+          :rating_value="item.rating_value"
+          @change-rating-value="changeRatingValue"
         />
       </div>
 
@@ -181,6 +164,28 @@ export default {
     return {
       headerIsSticky: false,
       footerIsSticky: false,
+      ratingList: [
+        {
+          name: 'speed',
+          caption: 'Скорость',
+          rating_value: 3
+        },
+        {
+          name: '"video-upload-speed',
+          caption: 'Скорость отдачи видео',
+          rating_value: 0
+        },
+        {
+          name: 'quality',
+          caption: 'Качество',
+          rating_value: 0
+        },
+        {
+          name: 'punctuality',
+          caption: 'Пунктуальность',
+          rating_value: 0
+        }
+      ]
     }
   },
   mounted: function () {
@@ -240,6 +245,9 @@ export default {
     },
     handleFormSubmit() {
       this.$emit('toggle-modal-review', true)
+    },
+    changeRatingValue() {
+      return '';
     }
   },
   computed: {
