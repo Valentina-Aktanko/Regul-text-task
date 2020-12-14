@@ -48,12 +48,14 @@
         key="page-figure"
       />
 
-      <div v-for="item in ratingList" :key="item.name" class="review-form__rating-wrapper">
-        <Rating
-          :class="'review-form__rating'"
+      <div class="review-form__rating-wrapper">
+        <Rating class="'review-form__rating'"
+          v-for="(item, index) in ratingList"
+          :key="index"
           :name="item.name"
           :caption="item.caption"
           :rating_value="item.rating_value"
+          :current_rating_item="index"
           @change-rating-value="changeRatingValue"
         />
       </div>
@@ -173,17 +175,17 @@ export default {
         {
           name: '"video-upload-speed',
           caption: 'Скорость отдачи видео',
-          rating_value: 0
+          rating_value: 0,
         },
         {
           name: 'quality',
           caption: 'Качество',
-          rating_value: 0
+          rating_value: 0,
         },
         {
           name: 'punctuality',
           caption: 'Пунктуальность',
-          rating_value: 0
+          rating_value: 0,
         }
       ]
     }
@@ -246,8 +248,8 @@ export default {
     handleFormSubmit() {
       this.$emit('toggle-modal-review', true)
     },
-    changeRatingValue() {
-      return '';
+    changeRatingValue(current_rating_item, new_value) {
+      this.ratingList[current_rating_item].rating_value = new_value
     }
   },
   computed: {

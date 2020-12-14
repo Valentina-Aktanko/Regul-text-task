@@ -3,16 +3,15 @@
     <legend class="rating__caption">{{ caption }}</legend>
 
     <div class="rating__group">
-      <input
-        v-for="(item, index) in items"
-        class="rating__star"
+      <input class="rating__star"
+        v-for="(rating_label, index) in rating_labels"
         :class="{ 'rating__star--filled': index + 1 <= rating_value }"
         type="radio"
         :name="name"
         :value="index + 1"
-        :aria-label="item"
+        :aria-label="rating_label"
         :key="name + index"
-        @click="changeRatingValue(index + 1)"
+        @click="onClick(current_rating_item, index)"
       />
     </div>
   </fieldset>
@@ -23,7 +22,7 @@ export default {
   data() {
     return {
       rating: 0,
-      items: ['Ужасно', 'Сносно', 'Нормально', 'Хорошо', 'Отлично']
+      rating_labels: ['Ужасно', 'Сносно', 'Нормально', 'Хорошо', 'Отлично']
     }
   },
   props: {
@@ -36,19 +35,19 @@ export default {
       default: 'rating'
     },
     rating_value: {
-      type: String,
-      default: '0'
+      type: Number,
+      default: 0
+    },
+    current_rating_item: {
+      type: Number,
+      defailt: 0
     }
   },
   methods: {
-    changeRatingValue(value) {
-      this.rating = Number(value)
+    onClick(current_rating_item, index_of_star) {
+      let new_value = index_of_star + 1
+      this.$emit('change-rating-value', current_rating_item, new_value)
     }
-  },
-  update() {
-    this.changeRatingValue(this.props.rating_value)
-    console.log(this.props.rating_value);
-    console.log(this.rating);
   }
 }
 </script>
