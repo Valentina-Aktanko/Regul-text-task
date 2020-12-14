@@ -60,21 +60,18 @@
           :class="'review-form__rating'"
           caption="Скорость отдачи видео"
           name="video-upload-speed"
-          rating_value="4"
         />
 
         <Rating
           :class="'review-form__rating'"
           caption="Качество"
           name="quality"
-          rating_value="5"
         />
 
         <Rating
           :class="'review-form__rating'"
           caption="Пунктуальность"
           name="punctuality"
-          rating_value="1"
         />
       </div>
 

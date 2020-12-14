@@ -27,17 +27,17 @@ export default {
   props: {
     caption: {
       type: String,
-      default: 'Рейтинг',
+      default: 'Рейтинг'
     },
     name: {
       type: String,
-      default: 'rating',
+      default: 'rating'
     },
     rating_value: {
       type: Number,
-      default: 0,
-    },
-  },
+      default: 0
+    }
+  }
 }
 </script>
 
