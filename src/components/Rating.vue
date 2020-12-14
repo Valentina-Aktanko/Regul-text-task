@@ -93,7 +93,6 @@ export default {
 .rating__star:focus,
 .rating__star:active {
   background-image: url(../assets/img/star-filled.svg);
-  outline: none;
 }
 
 .rating__star--filled {
